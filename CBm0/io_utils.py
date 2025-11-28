@@ -12,8 +12,13 @@ from .config import Config
 
 
 def get_output_dirs(cfg: Config, current_dir: str):
-    # Preserve CBm0-style nested folders: <cwd>/<base>/CBm0/<method>
-    output_dir_base = os.path.join(current_dir, cfg.output_base_dir, 'CBm0')
+    # If output_base_dir is absolute, use it directly.
+    # Otherwise, join with current_dir (cwd).
+    if os.path.isabs(cfg.output_base_dir):
+        output_dir_base = cfg.output_base_dir
+    else:
+        output_dir_base = os.path.join(current_dir, cfg.output_base_dir)
+
     output_dir_method = os.path.join(output_dir_base, cfg.output_method_dir)
 
     # Basic fields (CO, CO2 added only in wd2 mode)
@@ -159,4 +164,7 @@ def write_run_config(cfg: Config, output_dir_method: str, extra: Optional[dict] 
     with open(path, 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines) + '\n')
     return path
+
+
+
 
