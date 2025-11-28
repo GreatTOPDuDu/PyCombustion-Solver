@@ -34,13 +34,8 @@ Clone the repository and install the package:
 2. **Create and activate a virtual environment (Recommended):**
    *   **Windows (PowerShell):**
        ```powershell
-       python -m venv .venv
+       py-m venv .venv
        .\.venv\Scripts\Activate.ps1
-       ```
-   *   **Linux / macOS:**
-       ```bash
-       python3 -m venv .venv
-       source .venv/bin/activate
        ```
 
 3. **Install the package:**
@@ -52,13 +47,13 @@ Clone the repository and install the package:
 You can run the included demo script to see the solver in action:
 
 ```bash
-python examples/run_demo.py
+py examples/run_demo.py
 ```
 
 Or run the solver module directly with a configuration file:
 
 ```bash
-python -m CBm0 --config examples/demo_config.yaml
+py -m CBm0 --config examples/demo_config.yaml
 ```
 
 ## Documentation
@@ -80,6 +75,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
