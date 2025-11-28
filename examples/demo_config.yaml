@@ -4,10 +4,15 @@ Ny: 128
 Lx: 0.1
 Ly: 0.2
 v_fuel: 3.0
-t_final: 0.010  
+v_air: 3.0
+T_fuel: 380.0
+T_air: 1080.0
+t_final: 0.035  
 save_every: 10
 mg_cycles_per_step: 1
 inlet_mode: 'uniform'
 mixing_mode: 'stratified'
 output_base_dir: 'outputs'
 output_method_dir: 'demo_result'
+
+
