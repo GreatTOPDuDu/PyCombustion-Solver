@@ -21,13 +21,31 @@
 
 ## Installation
 
+It is recommended to use a virtual environment to avoid conflicts.
+
 Clone the repository and install the package:
 
-```bash
-git clone https://github.com/GreatTOPDuDu/PyCombustion-Solver.git
-cd PyCombustion-Solver
-pip install -e .
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/GreatTOPDuDu/PyCombustion-Solver.git
+   cd PyCombustion-Solver
+   ```
+
+2. **Create and activate a virtual environment (Recommended):**
+   *   **Windows (PowerShell):**
+       ```powershell
+       python -m venv .venv
+       .\.venv\Scripts\Activate.ps1
+       ```
+   *   **Linux / macOS:**
+       ```bash
+       python3 -m venv .venv
+       source .venv/bin/activate
+       ```
+
+3. **Install the package:**
+   ```bash
+   pip install -e .
 
 ## Quick Start
 
@@ -62,6 +80,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
