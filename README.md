@@ -34,7 +34,7 @@ Clone the repository and install the package:
 2. **Create and activate a virtual environment (Recommended):**
    *   **Windows (PowerShell):**
        ```powershell
-       py-m venv .venv
+       py -3.11 -m venv .venv
        .\.venv\Scripts\Activate.ps1
        ```
 
@@ -75,6 +75,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
