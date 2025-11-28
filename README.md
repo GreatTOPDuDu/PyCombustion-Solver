@@ -35,12 +35,12 @@ Clone the repository and install the package:
    *   **Windows (PowerShell):**
        ```powershell
        py -3.11 -m venv .venv
-       .\.venv\Scripts\Activate.ps1
+       .\.venv\Scripts\Activate
        ```
 
 3. **Install the package:**
    ```bash
-   pip install -e .
+   pip install -e.
 
 ## Quick Start
 
@@ -75,6 +75,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
