@@ -45,10 +45,7 @@ def main(cfg: Config) -> int:
     P0 = cfg.P0_pa  # bind pressure
 
     # Paths
-    try:
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-    except NameError:
-        current_dir = os.getcwd()
+    current_dir = os.getcwd()
     out_dirs = get_output_dirs(cfg, current_dir)
 
     # write configuration snapshot (include parallel info)
@@ -532,7 +529,7 @@ def main(cfg: Config) -> int:
         cmap='viridis',
     )
 
-    print(f"\nCBm0 finished at t={t:.4f} s. P0={P0:.0f} Pa. Results in {out_dirs['method']}")
+    print(f"\nCBm0 finished at t={t:.4f} s. Results in {out_dirs['method']}")
     ign_path = os.path.join(out_dirs['LOG'], 'ignition.txt')
     if os.path.exists(ign_path):
         with open(ign_path, 'r', encoding='utf-8') as f:
@@ -545,3 +542,4 @@ if __name__ == '__main__':
     print("Numba parallel JIT enabled. First run may be slower (compiling...)")
     cfg = parse_config()
     sys.exit(main(cfg))
+
