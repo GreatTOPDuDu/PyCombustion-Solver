@@ -21,7 +21,7 @@
 
 ## Installation
 
-It is recommended to use a virtual environment to avoid conflicts.
+It is recommended to use a virtual environment to avoid conflicts. Also recommend to use code in Window settings.
 
 Clone the repository and install the package:
 
@@ -75,6 +75,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
