@@ -1,7 +1,7 @@
 # PyCombustion-Solver (CBm0)
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-![Python](https://img.shields.io/badge/Python-3.9_to_3.12-blue)
+![Python](https://img.shields.io/badge/Python-3.9_to_3.11-blue)
 [![DOI](https://zenodo.org/badge/1105952822.svg)](https://doi.org/10.5281/zenodo.17750354)
 [![Python package](https://github.com/GreatTOPDuDu/PyCombustion-Solver/actions/workflows/python-package.yml/badge.svg)](https://github.com/GreatTOPDuDu/PyCombustion-Solver/actions/workflows/python-package.yml)
 
@@ -62,6 +62,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
