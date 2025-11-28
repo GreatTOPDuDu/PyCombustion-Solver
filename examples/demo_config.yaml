@@ -1,0 +1,10 @@
+# Demo configuration for CBm0
+Nx: 64
+Ny: 128
+Lx: 0.1
+Ly: 0.2
+t_final: 0.001  # Very short run for demo
+save_every: 10
+mg_cycles_per_step: 1
+inlet_mode: 'uniform'
+mixing_mode: 'stratified'

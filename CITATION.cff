@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+title: "PyCombustion-Solver (CBm0)"
+message: "If you use this software, please cite it using the metadata from this file."
+type: software
+authors:
+  - family-names: Jung
+    given-names: HeeSeong
+    affiliation: "Independent Researcher"
+    orcid: "https://orcid.org/0009-0008-8743-2047"
+repository-code: "https://github.com/GreatTOPDuDu/PyCombustion-Solver"
+url: "https://github.com/GreatTOPDuDu/PyCombustion-Solver"
+license: Apache-2.0
+version: 0.1.0
+date-released: 2025-11-28
+keywords:
+  - CFD
+  - combustion
+  - python
+  - numba
+  - reacting-flow
