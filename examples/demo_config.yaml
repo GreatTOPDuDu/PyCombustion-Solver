@@ -3,8 +3,11 @@ Nx: 64
 Ny: 128
 Lx: 0.1
 Ly: 0.2
-t_final: 0.001  # Very short run for demo
+v_fuel: 3.0
+t_final: 0.010  
 save_every: 10
 mg_cycles_per_step: 1
 inlet_mode: 'uniform'
 mixing_mode: 'stratified'
+output_base_dir: 'outputs'
+output_method_dir: 'demo_result'
