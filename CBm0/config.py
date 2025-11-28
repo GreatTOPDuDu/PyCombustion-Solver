@@ -85,8 +85,8 @@ class Config:
     plot_YC2_max: Optional[float] = 1.0
     plot_YW_min: Optional[float] = 0.0
     plot_YW_max: Optional[float] = 1.0
-    plot_RHO_min: Optional[float] = None
-    plot_RHO_max: Optional[float] = None
+    plot_RHO_min: Optional[float] = 0.02
+    plot_RHO_max: Optional[float] = 0.6
     plot_U_min: Optional[float] = None
     plot_U_max: Optional[float] = None
     plot_V_min: Optional[float] = None
@@ -107,3 +107,4 @@ def parse_config() -> Config:
     # For now, just return defaults. Extend here to parse CLI/env if needed.
     cfg = Config()
     return cfg
+
