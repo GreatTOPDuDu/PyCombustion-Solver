@@ -24,7 +24,7 @@
 Clone the repository and install the package:
 
 ```bash
-git clone https://github.com/your-id/PyCombustion-Solver.git
+git clone https://github.com/GreatTOPDuDu/PyCombustion-Solver.git
 cd PyCombustion-Solver
 pip install -e .
 ```
@@ -62,6 +62,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
