@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/GreatTOPDuDu/yCombustion-Solver"
+"Homepage" = "https://github.com/GreatTOPDuDu/PyCombustion-Solver"
 "Bug Tracker" = "https://github.com/GreatTOPDuDu/PyCombustion-Solver/issues"
 
 [tool.pytest.ini_options]
@@ -27,3 +27,4 @@ testpaths = ["tests"]
 python_files = "test_*.py"
 [tool.setuptools]
 packages = ["CBm0"]
+
