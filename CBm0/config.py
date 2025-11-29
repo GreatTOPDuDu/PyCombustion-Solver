@@ -29,10 +29,10 @@ class Config:
     equiv_mode: str = "stoic"        # 'rich' | 'stoic' | 'lean'
     phi_override: Optional[float] = None
     num_fuel_channels: int = 1
-    fuel_channel_width: float = 6.0e-3
+    fuel_channel_width: float = 1.0e-3
 
     # inlet specification
-    inlet_mode: str = 'explicit'  # 'uniform' | 'explicit'
+    inlet_mode: str = 'uniform'  # 'uniform' | 'explicit'
     # Use default_factory to avoid mutable default argument issue and ensure values are set here
     fuel_inlet_spans_m: List[Tuple[float, float]] = field(default_factory=lambda: [(0.1997, 0.2003), (0.3997, 0.4003), (0.5997, 0.6003), ])
 
@@ -107,4 +107,5 @@ def parse_config() -> Config:
     # For now, just return defaults. Extend here to parse CLI/env if needed.
     cfg = Config()
     return cfg
+
 
