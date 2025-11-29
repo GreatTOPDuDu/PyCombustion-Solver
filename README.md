@@ -32,15 +32,25 @@ Clone the repository and install the package:
    ```
 
 2. **Create and activate a virtual environment (Recommended):**
-   *   **Windows (PowerShell):**
-       ```powershell
-       py -3.11 -m venv .venv
-       .\.venv\Scripts\Activate
-       ```
+    *   **Windows (PowerShell):**
+          ```powershell
+          py -3.11 -m venv .venv
+          .\.venv\Scripts\Activate
+          ```
+    *   **Windows (Command Prompt / cmd):**
+          ```cmd
+          py -3.11 -m venv .venv
+          .\.venv\Scripts\activate
+          ```
+    *   **Linux/macOS (bash/zsh):**
+          ```bash
+          python3 -m venv .venv
+          source .venv/bin/activate
+          ```
 
 3. **Install the package:**
-   ```bash
-   pip install -e.
+    ```bash
+    pip install -e .
 
 ## Quick Start
 
@@ -55,6 +65,99 @@ Or run the solver module directly with a configuration file:
 ```bash
 py -m CBm0 --config examples/demo_config.yaml
 ```
+
+## Usage by Environment
+
+Below are step-by-step instructions for common environments.
+
+### Windows (PowerShell)
+- **Create venv:**
+   ```powershell
+   py -3.11 -m venv .venv
+   ```
+- **Activate venv:**
+   ```powershell
+   .\.venv\Scripts\Activate
+   ```
+- **Install in editable mode:**
+   ```powershell
+   pip install -e .
+   ```
+- **Run demo:**
+   ```powershell
+   py examples/run_demo.py
+   ```
+- **Run with config:**
+   ```powershell
+   py -m CBm0 --config examples/demo_config.yaml
+   ```
+
+### Windows (Command Prompt / cmd)
+- **Create venv:**
+   ```cmd
+   py -3.11 -m venv .venv
+   ```
+- **Activate venv:**
+   ```cmd
+   .\.venv\Scripts\activate
+   ```
+- **Install in editable mode:**
+   ```cmd
+   pip install -e .
+   ```
+- **Run demo:**
+   ```cmd
+   py examples\run_demo.py
+   ```
+- **Run with config:**
+   ```cmd
+   py -m CBm0 --config examples\demo_config.yaml
+   ```
+
+### Windows (VS Code)
+- **Open folder:** Start VS Code and open the repository folder.
+- **Select Python interpreter:** Use `Ctrl+Shift+P` → `Python: Select Interpreter` → choose `.venv` interpreter.
+- **Create venv (optional if not created yet):** Open the integrated terminal (`PowerShell` by default) and run:
+   ```powershell
+   py -3.11 -m venv .venv; .\.venv\Scripts\Activate; pip install -e .
+   ```
+- **Run demo:**
+   - From terminal:
+      ```powershell
+      py examples/run_demo.py
+      ```
+   - Or press `F5` to run a configured launch (you can add a simple `launch.json` to run `examples/run_demo.py` if desired).
+- **Run with config:**
+   ```powershell
+   py -m CBm0 --config examples/demo_config.yaml
+   ```
+
+### Linux/macOS (Terminal)
+- **Create venv:**
+   ```bash
+   python3 -m venv .venv
+   ```
+- **Activate venv:**
+   ```bash
+   source .venv/bin/activate
+   ```
+- **Install in editable mode:**
+   ```bash
+   pip install -e .
+   ```
+- **Run demo:**
+   ```bash
+   python3 examples/run_demo.py
+   ```
+- **Run with config:**
+   ```bash
+   python3 -m CBm0 --config examples/demo_config.yaml
+   ```
+
+### Notes
+- If `py` is unavailable on Linux/macOS, use `python3`.
+- Numba will JIT-compile on first run; the initial execution may be slower.
+- Outputs are written under `outputs/demo_result/` when running the demo.
 
 ## Documentation
 
@@ -75,7 +178,6 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
-
 
 
 
