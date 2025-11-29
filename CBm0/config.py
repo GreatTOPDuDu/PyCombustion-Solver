@@ -6,8 +6,8 @@ from typing import Optional, List, Tuple
 @dataclass
 class Config:
     # grid
-    Nx: int = 401
-    Ny: int = 801
+    Nx: int = 128
+    Ny: int = 256
     Lx: float = 0.80
     Ly: float = 1.60
 
@@ -33,8 +33,8 @@ class Config:
 
     # inlet specification
     inlet_mode: str = 'uniform'  # 'uniform' | 'explicit'
-    # Use default_factory to avoid mutable default argument issue and ensure values are set here
-    fuel_inlet_spans_m: List[Tuple[float, float]] = field(default_factory=lambda: [(0.1997, 0.2003), (0.3997, 0.4003), (0.5997, 0.6003), ])
+    # explicit inlet spans: List of (y_start, y_end) in meters(set None to use uniform inlet)
+    fuel_inlet_spans_m: List[Tuple[float, float]] = field(default_factory=lambda: [None])
 
     # time & numerics
     t_final: float = 3.0
@@ -61,17 +61,17 @@ class Config:
     enable_thermal_NOx: bool = True
 
     # ignition
-    ignition_mode: str = "off"     # Always 'off' as requested
+    ignition_mode: str = "off"     
 
     # ignition detection
     ign_hrr_threshold_Wm: float = 10.0
 
     # parallelization
-    num_threads: int = 8  # 0 = numba default
+    num_threads: int = 8  
 
     # output directories
-    output_base_dir: str = 'CBm0'
-    output_method_dir: str = 'test0'
+    output_base_dir: str = 'out'
+    output_method_dir: str = 'test1'
 
     # plotting ranges (set None to auto-scale). For log-scale vars (YC, HRR, YNO) use positive values.
     # Linear-scale plots
@@ -85,8 +85,8 @@ class Config:
     plot_YC2_max: Optional[float] = 1.0
     plot_YW_min: Optional[float] = 0.0
     plot_YW_max: Optional[float] = 1.0
-    plot_RHO_min: Optional[float] = 0.02
-    plot_RHO_max: Optional[float] = 0.6
+    plot_RHO_min: Optional[float] = None
+    plot_RHO_max: Optional[float] = None
     plot_U_min: Optional[float] = None
     plot_U_max: Optional[float] = None
     plot_V_min: Optional[float] = None
@@ -104,8 +104,9 @@ class Config:
 
 
 def parse_config() -> Config:
-    # For now, just return defaults. Extend here to parse CLI/env if needed.
     cfg = Config()
     return cfg
+
+
 
 
