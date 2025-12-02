@@ -52,6 +52,13 @@ Clone the repository and install the package:
     ```bash
     pip install -e .
 
+## Pytest
+
+```bash
+python -m pip install pytest
+python -m pytest
+```
+
 ## Quick Start
 
 You can run the included demo script to see the solver in action:
@@ -160,6 +167,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
