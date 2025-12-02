@@ -1,19 +1,20 @@
 # Demo configuration for CBm0
-Nx: 64
-Ny: 128
+Nx: 101
+Ny: 201
 Lx: 0.1
 Ly: 0.2
-v_fuel: 3.0
-v_air: 3.0
+v_fuel: 0.2
+v_air: 0.2
 T_fuel: 380.0
 T_air: 980.0
-t_final: 0.035  
+t_final: 0.1 
 save_every: 10
 mg_cycles_per_step: 1
 inlet_mode: 'uniform'
 mixing_mode: 'stratified'
-output_base_dir: 'outputs'
+output_base_dir: 'out'
 output_method_dir: 'demo_result'
+
 
 
 
