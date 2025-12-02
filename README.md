@@ -52,13 +52,6 @@ Clone the repository and install the package:
     ```bash
     pip install -e .
 
-## Pytest
-
-```bash
-python -m pip install pytest
-python -m pytest
-```
-
 ## Quick Start
 
 You can run the included demo script to see the solver in action:
@@ -143,6 +136,13 @@ Below are step-by-step instructions for common environments.
    python3 -m CBm0 --config examples/demo_config.yaml
    ```
 
+## Pytest (If required)
+
+```bash
+python -m pip install pytest
+python -m pytest
+```
+
 ### Notes
 - If `py` is unavailable on Linux/macOS, use `python3`.
 - Numba will JIT-compile on first run; the initial execution may be slower.
@@ -167,6 +167,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
