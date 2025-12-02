@@ -87,10 +87,6 @@ Below are step-by-step instructions for common environments.
    ```powershell
    py examples/run_demo.py
    ```
-- **Run with config:**
-   ```powershell
-   py -m CBm0 --config examples/demo_config.yaml
-   ```
 
 ### Windows (Command Prompt / cmd)
 - **Create venv:**
@@ -108,10 +104,6 @@ Below are step-by-step instructions for common environments.
 - **Run demo:**
    ```cmd
    py examples\run_demo.py
-   ```
-- **Run with config:**
-   ```cmd
-   py -m CBm0 --config examples\demo_config.yaml
    ```
 
 ### Linux/macOS (Terminal)
@@ -131,11 +123,7 @@ Below are step-by-step instructions for common environments.
    ```bash
    python3 examples/run_demo.py
    ```
-- **Run with config:**
-   ```bash
-   python3 -m CBm0 --config examples/demo_config.yaml
-   ```
-   
+
 ### Notes
 - If `py` is unavailable on Linux/macOS, use `python3`.
 - Numba will JIT-compile on first run; the initial execution may be slower.
@@ -167,6 +155,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
