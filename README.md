@@ -114,24 +114,6 @@ Below are step-by-step instructions for common environments.
    py -m CBm0 --config examples\demo_config.yaml
    ```
 
-### Windows (VS Code)
-- **Open folder:** Start VS Code and open the repository folder.
-- **Select Python interpreter:** Use `Ctrl+Shift+P` → `Python: Select Interpreter` → choose `.venv` interpreter.
-- **Create venv (optional if not created yet):** Open the integrated terminal (`PowerShell` by default) and run:
-   ```powershell
-   py -3.11 -m venv .venv; .\.venv\Scripts\Activate; pip install -e .
-   ```
-- **Run demo:**
-   - From terminal:
-      ```powershell
-      py examples/run_demo.py
-      ```
-   - Or press `F5` to run a configured launch (you can add a simple `launch.json` to run `examples/run_demo.py` if desired).
-- **Run with config:**
-   ```powershell
-   py -m CBm0 --config examples/demo_config.yaml
-   ```
-
 ### Linux/macOS (Terminal)
 - **Create venv:**
    ```bash
@@ -178,6 +160,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
