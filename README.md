@@ -135,6 +135,11 @@ Below are step-by-step instructions for common environments.
    ```bash
    python3 -m CBm0 --config examples/demo_config.yaml
    ```
+   
+### Notes
+- If `py` is unavailable on Linux/macOS, use `python3`.
+- Numba will JIT-compile on first run; the initial execution may be slower.
+- Outputs are written under `outputs/demo_result/` when running the demo.
 
 ## Pytest (If required)
 
@@ -142,11 +147,6 @@ Below are step-by-step instructions for common environments.
 python -m pip install pytest
 python -m pytest
 ```
-
-### Notes
-- If `py` is unavailable on Linux/macOS, use `python3`.
-- Numba will JIT-compile on first run; the initial execution may be slower.
-- Outputs are written under `outputs/demo_result/` when running the demo.
 
 ## Documentation
 
@@ -167,6 +167,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
