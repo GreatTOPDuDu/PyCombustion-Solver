@@ -60,12 +60,6 @@ You can run the included demo script to see the solver in action:
 py examples/run_demo.py
 ```
 
-Or run the solver module directly with a configuration file:
-
-```bash
-py -m CBm0 --config examples/demo_config.yaml
-```
-
 ## Usage by Environment
 
 Below are step-by-step instructions for common environments.
@@ -155,6 +149,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
