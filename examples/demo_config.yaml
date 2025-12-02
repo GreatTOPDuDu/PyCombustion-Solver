@@ -7,13 +7,14 @@ v_fuel: 0.2
 v_air: 0.2
 T_fuel: 380.0
 T_air: 980.0
-t_final: 0.1 
+t_final: 0.3 
 save_every: 10
 mg_cycles_per_step: 1
 inlet_mode: 'uniform'
 mixing_mode: 'stratified'
 output_base_dir: 'out'
 output_method_dir: 'demo_result'
+
 
 
 
