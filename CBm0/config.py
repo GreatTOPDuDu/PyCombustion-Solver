@@ -6,17 +6,17 @@ from typing import Optional, List, Tuple
 @dataclass
 class Config:
     # grid
-    Nx: int = 128
-    Ny: int = 256
-    Lx: float = 0.80
-    Ly: float = 1.60
+    Nx: int = 101
+    Ny: int = 201
+    Lx: float = 0.10
+    Ly: float = 0.20
 
     # thermodynamic reference
     P0_pa: float = 1.0e5
 
     # inlets
-    v_fuel: float = 0.8
-    v_air: float = 0.5
+    v_fuel: float = 0.2
+    v_air: float = 0.2
     T_fuel: float = 380.0
     T_air: float = 1080.0
     YF_fuel: float = 1.0
@@ -41,14 +41,14 @@ class Config:
     cfl_adv: float = 0.35
     cfl_diff: float = 0.35
     # Save condition: If None, that criterion is disabled
-    save_every: Optional[int] = 50        # Step-based save interval (None -> disabled)
+    save_every: Optional[int] = 10        # Step-based save interval (None -> disabled)
     save_interval: Optional[float] = None # Physical time interval save (None -> disabled)
 
     # pressure solver (multigrid)
-    mg_pre_smooth: int = 2
-    mg_post_smooth: int = 2
+    mg_pre_smooth: int = 4
+    mg_post_smooth: int = 4
     mg_cycles_per_step: int = 2
-    mg_coarsest_min: int = 8
+    mg_coarsest_min: int = 25
 
     # transport
     Pr_mix_ref: float = 0.7
@@ -106,6 +106,7 @@ class Config:
 def parse_config() -> Config:
     cfg = Config()
     return cfg
+
 
 
 
