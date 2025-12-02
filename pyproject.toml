@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pycombustion-solver"
-version = "0.1.0"
+version = "0.1.5"
 description = "A 2D reacting flow solver for educational purposes"
 readme = "README.md"
 requires-python = ">=3.9, <3.12"
@@ -27,5 +27,6 @@ testpaths = ["tests"]
 python_files = "test_*.py"
 [tool.setuptools]
 packages = ["CBm0"]
+
 
 
