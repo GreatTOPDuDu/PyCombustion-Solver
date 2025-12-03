@@ -1,19 +1,19 @@
-# Demo configuration for CBm0
-Nx: 101
-Ny: 201
-Lx: 0.1
-Ly: 0.2
-v_fuel: 0.2
-v_air: 0.2
-T_fuel: 380.0
-T_air: 980.0
-t_final: 0.3 
-save_every: 10
-mg_cycles_per_step: 1
+# Demo configuration for CBm0  
+Nx: 161          
+Ny: 321         
+Lx: 0.04         # [m] 
+Ly: 0.08         # [m] 
+v_fuel: 0.2      # [m/s] 
+v_air: 0.2       # [m/s]
+T_fuel: 380.0    # [K]
+T_air: 980.0     # [K]
+t_final: 0.25    
+save_every: 20   
+mg_cycles_per_step: 2  
 inlet_mode: 'uniform'
 mixing_mode: 'stratified'
 output_base_dir: 'out'
-output_method_dir: 'demo_result'
+output_method_dir: 'joss_default'
 
 
 
