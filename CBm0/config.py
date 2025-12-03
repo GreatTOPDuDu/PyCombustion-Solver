@@ -15,8 +15,8 @@ class Config:
     P0_pa: float = 1.0e5
 
     # inlets
-    v_fuel: float = 0.2
-    v_air: float = 0.2
+    v_fuel: float = 0.1
+    v_air: float = 0.1
     T_fuel: float = 380.0
     T_air: float = 1080.0
     YF_fuel: float = 1.0
@@ -37,7 +37,7 @@ class Config:
     fuel_inlet_spans_m: List[Tuple[float, float]] = field(default_factory=lambda: [None])
 
     # time & numerics
-    t_final: float = 3.0
+    t_final: float = 2.0
     cfl_adv: float = 0.35
     cfl_diff: float = 0.35
     # Save condition: If None, that criterion is disabled
@@ -70,7 +70,7 @@ class Config:
     num_threads: int = 8  
 
     # output directories
-    output_base_dir: str = 'out'
+    output_base_dir: str = 'out2'
     output_method_dir: str = 'test1'
 
     # plotting ranges (set None to auto-scale). For log-scale vars (YC, HRR, YNO) use positive values.
@@ -106,6 +106,8 @@ class Config:
 def parse_config() -> Config:
     cfg = Config()
     return cfg
+
+
 
 
 
