@@ -173,3 +173,4 @@ def mg_solve(rhs, k, dx, dy, p0, cycles, pre, post, mgmin):
     for _ in range(cycles):
         p = vcycle(p, rhs, k, dx, dy, pre, post, mgmin)
     return p
+
