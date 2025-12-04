@@ -8,11 +8,13 @@ import numpy as np
 import numba
 from tqdm import tqdm
 
-from .config import Config
+from .config import Config, apply_mode_defaults
 from .physics import (
     R_u, M_O2, M_N2,
-    cp_mixture_mass, mu_species_all, mole_fractions_all, wilke_mixture_viscosity_general,
+    cp_mixture_mass, cp_mixture_mass_lut, build_cp_lut,
+    mu_species_all, mole_fractions_all, wilke_mixture_viscosity_general,
     Rmix_and_rho, k_mixture, D_species_T_all,
+    mu_powerlaw_mixture, D_le1_equivalent,
 )
 from .numerics import tvd_div, apply_diffusion, divergence, mg_solve
 from .chemistry import compute_sources_wd2, compute_sources_h2_global, thermal_NO_source
@@ -35,6 +37,9 @@ def _convective_outflow_update(phi: np.ndarray, c_out: float, dt: float, dy: flo
 
 
 def main(cfg: Config) -> int:
+    # Ensure mode-derived defaults are applied even when cfg comes from YAML.
+    # This keeps reference/fast/inert behaviour consistent across entry points.
+    cfg = apply_mode_defaults(cfg)
     # Numba threads control
     if isinstance(cfg.num_threads, int) and cfg.num_threads > 0:
         try:
@@ -180,6 +185,11 @@ def main(cfg: Config) -> int:
 
     mF0 = fuel_mass_integral(rho, YF)
 
+    # Precompute thermo LUT if requested (fast mode)
+    cp_lut = None
+    if getattr(cfg, 'use_thermo_lut', False):
+        cp_lut = build_cp_lut(fuel_type=cfg.fuel_type)
+
     # Loop
     t = 0.0; step = 0
     pbar = tqdm(total=cfg.t_final, desc='CBm0 (MUSCL/TVD + WD2/H2, parallel)', unit='s')
@@ -189,24 +199,38 @@ def main(cfg: Config) -> int:
     E_chem_cum = 0.0
 
     while t < cfg.t_final:
-        Cp_mix = cp_mixture_mass(T, YF, YO, YC, YC2, YW, fuel_type=cfg.fuel_type)
-        mu_map = mu_species_all(T, fuel_type=cfg.fuel_type)
-        x_CH4, x_O2, x_CO, x_CO2, x_H2O, x_N2 = mole_fractions_all(YF, YO, YC, YC2, YW, fuel_type=cfg.fuel_type)
-        # First component corresponds to "fuel" (CH4 or H2), key is fixed to CH4
-        if cfg.fuel_type.upper() == "H2":
-            M_fuel = 2e-3
+        # --- Thermo & transport properties
+        if getattr(cfg, 'use_thermo_lut', False) and cp_lut is not None:
+            Cp_mix = cp_mixture_mass_lut(T, YF, YO, YC, YC2, YW, cp_lut, fuel_type=cfg.fuel_type)
         else:
-            M_fuel = 16e-3
-        mu_mix = wilke_mixture_viscosity_general(
-            [mu_map['CH4'], mu_map['O2'], mu_map['CO'], mu_map['CO2'], mu_map['H2O'], mu_map['N2']],
-            [x_CH4, x_O2, x_CO, x_CO2, x_H2O, x_N2],
-            [M_fuel, 32e-3, 28e-3, 44e-3, 18e-3, 28e-3],
-        )
-        k_mix = k_mixture(mu_mix, Cp_mix, Pr=cfg.Pr_mix_ref)
-        D_ch4_or_h2, D_o2, D_co, D_co2, D_h2o, D_n2 = D_species_T_all(T, fuel_type=cfg.fuel_type)
+            Cp_mix = cp_mixture_mass(T, YF, YO, YC, YC2, YW, fuel_type=cfg.fuel_type)
+
         Rmix_loc, rho = Rmix_and_rho(T, YF, YO, YC, YC2, YW, P0, fuel_type=cfg.fuel_type)
+
+        if getattr(cfg, 'transport_model', 'full') == 'Le1':
+            # Simplified Le=1 transport: single mu(T) and D ≈ alpha for all species.
+            mu_mix = mu_powerlaw_mixture(T)
+            alpha_loc = mu_mix * Cp_mix / max(cfg.Pr_mix_ref, 1e-12)
+            D_eq = D_le1_equivalent(alpha_loc)
+            D_ch4_or_h2 = D_o2 = D_co = D_co2 = D_h2o = D_n2 = D_eq
+        else:
+            mu_map = mu_species_all(T, fuel_type=cfg.fuel_type)
+            x_CH4, x_O2, x_CO, x_CO2, x_H2O, x_N2 = mole_fractions_all(YF, YO, YC, YC2, YW, fuel_type=cfg.fuel_type)
+            # First component corresponds to "fuel" (CH4 or H2), key is fixed to CH4
+            if cfg.fuel_type.upper() == "H2":
+                M_fuel = 2e-3
+            else:
+                M_fuel = 16e-3
+            mu_mix = wilke_mixture_viscosity_general(
+                [mu_map['CH4'], mu_map['O2'], mu_map['CO'], mu_map['CO2'], mu_map['H2O'], mu_map['N2']],
+                [x_CH4, x_O2, x_CO, x_CO2, x_H2O, x_N2],
+                [M_fuel, 32e-3, 28e-3, 44e-3, 18e-3, 28e-3],
+            )
+            k_mix = k_mixture(mu_mix, Cp_mix, Pr=cfg.Pr_mix_ref)
+            D_ch4_or_h2, D_o2, D_co, D_co2, D_h2o, D_n2 = D_species_T_all(T, fuel_type=cfg.fuel_type)
+            alpha_loc = k_mix / (rho * np.maximum(Cp_mix, 1e-12))
+
         nu_loc = mu_mix / np.maximum(rho, 1e-12)
-        alpha_loc = k_mix / (rho * np.maximum(Cp_mix, 1e-12))
         Dmax = np.maximum.reduce([D_ch4_or_h2, D_o2, D_co, D_co2, D_h2o])
         umax = max(1e-8, float(np.max(np.abs(u))))
         vmax = max(1e-8, float(np.max(np.abs(v))))
@@ -268,15 +292,40 @@ def main(cfg: Config) -> int:
             Cp_mix_sub = cp_mixture_mass(T, YF, YO, YC, YC2, YW, fuel_type=cfg.fuel_type)
             _, rho_sub = Rmix_and_rho(T, YF, YO, YC, YC2, YW, P0, fuel_type=cfg.fuel_type)
 
-            if cfg.kinetics_model == 'wd2':
-                S_T, S_YF, S_YO, S_YC, S_YC2, S_YW, HRR_chem_sub = compute_sources_wd2(
-                    T, rho_sub, Cp_mix_sub, YF, YO, YC, YC2, YW
-                )
-            elif cfg.kinetics_model == 'h2':
-                S_T, S_YF, S_YO, S_YC, S_YC2, S_YW, HRR_chem_sub = compute_sources_h2_global(
-                    T, rho_sub, Cp_mix_sub, YF, YO, YW
-                )
+            if cfg.chemistry_on:
+                if cfg.kinetics_model == 'wd2':
+                    # Apply global Westbrook–Dryer multipliers from config.
+                    S_T, S_YF, S_YO, S_YC, S_YC2, S_YW, HRR_chem_sub = compute_sources_wd2(
+                        T,
+                        rho_sub,
+                        Cp_mix_sub,
+                        YF,
+                        YO,
+                        YC,
+                        YC2,
+                        YW,
+                        A1_mult=cfg.wd2_A_mult,
+                        Ea1_mult=cfg.wd2_Ea_mult,
+                        A2_mult=cfg.wd2_A_mult,
+                        Ea2_mult=cfg.wd2_Ea_mult,
+                    )
+                elif cfg.kinetics_model == 'h2':
+                    S_T, S_YF, S_YO, S_YC, S_YC2, S_YW, HRR_chem_sub = compute_sources_h2_global(
+                        T,
+                        rho_sub,
+                        Cp_mix_sub,
+                        YF,
+                        YO,
+                        YW,
+                        A_mult=cfg.h2_A_mult,
+                        Ea_mult=cfg.h2_Ea_mult,
+                    )
+                else:
+                    S_T = np.zeros_like(T); S_YF = np.zeros_like(T); S_YO = np.zeros_like(T)
+                    S_YC = np.zeros_like(T); S_YC2 = np.zeros_like(T); S_YW = np.zeros_like(T)
+                    HRR_chem_sub = np.zeros_like(T)
             else:
+                # In inert mode, or when chemistry is disabled, skip all source terms.
                 S_T = np.zeros_like(T); S_YF = np.zeros_like(T); S_YO = np.zeros_like(T)
                 S_YC = np.zeros_like(T); S_YC2 = np.zeros_like(T); S_YW = np.zeros_like(T)
                 HRR_chem_sub = np.zeros_like(T)
@@ -329,19 +378,7 @@ def main(cfg: Config) -> int:
         scale = np.where(Ysum > 1e-12, np.minimum(1.0, 1.0 / Ysum), 1.0)
         YF *= scale; YO *= scale; YC *= scale; YC2 *= scale; YW *= scale; YNO *= scale
 
-        # Momentum predictor
-        mu_map = mu_species_all(T, fuel_type=cfg.fuel_type)
-        x_CH4, x_O2, x_CO, x_CO2, x_H2O, x_N2 = mole_fractions_all(YF, YO, YC, YC2, YW, fuel_type=cfg.fuel_type)
-        if cfg.fuel_type.upper() == "H2":
-            M_fuel = 2e-3
-        else:
-            M_fuel = 16e-3
-        mu_mix = wilke_mixture_viscosity_general(
-            [mu_map['CH4'], mu_map['O2'], mu_map['CO'], mu_map['CO2'], mu_map['H2O'], mu_map['N2']],
-            [x_CH4, x_O2, x_CO, x_CO2, x_H2O, x_N2],
-            [M_fuel, 32e-3, 28e-3, 44e-3, 18e-3, 28e-3],
-        )
-        nu_loc = mu_mix / np.maximum(rho, 1e-12)
+        # Momentum predictor (reuse same mu_mix / nu_loc as above)
         conv_u = tvd_div(u0, u0, v0, dx, dy, limiter_kind=cfg.adv_limiter)
         conv_v = tvd_div(v0, u0, v0, dx, dy, limiter_kind=cfg.adv_limiter)
         diff_u = apply_diffusion(u0, nu_loc, dx, dy)
@@ -402,6 +439,29 @@ def main(cfg: Config) -> int:
                 f"{rho_min:.6e},{rho_max:.6e},{rho_mean:.6e},"
                 f"{float(np.min(Ysum_diag)):.6e},{float(np.max(Ysum_diag)):.6e}\n"
             )
+
+        # Lightweight in-situ monitoring log (optional)
+        if getattr(cfg, 'monitor_interval', 0) and cfg.monitor_interval > 0:
+            if step % cfg.monitor_interval == 0:
+                monitor_path = os.path.join(out_dirs['LOG'], 'monitor.log')
+                Tmax = float(np.max(T))
+                Tmean = float(np.mean(T))
+                with open(monitor_path, 'a', encoding='utf-8') as mf:
+                    mf.write(
+                        f"step={step}, t={t:.6e}, dt={dt:.6e}, "
+                        f"HRR_total_int={HRR_total_int:.6e}, HRR_chem_int={HRR_chem_int:.6e}, "
+                        f"Tmax={Tmax:.3f}, Tmean={Tmean:.3f}\n"
+                    )
+
+                # Optional 1D centerline temperature profile for quick inspection
+                if getattr(cfg, 'monitor_centerline', False):
+                    i_center = Nx // 2
+                    centerline_T = T[:, i_center]
+                    centerline_path = os.path.join(out_dirs['LOG'], 'centerline_T.txt')
+                    # Each block is tagged by step and time for easier plotting.
+                    with open(centerline_path, 'a', encoding='utf-8') as cf:
+                        cf.write(f"# step={step}, t={t:.6e}\n")
+                        np.savetxt(cf, centerline_T[None, :], fmt="%.6e", delimiter=",")
 
         # Ignition detection
         if (t_ign is None) and (HRR_chem_int > cfg.ign_hrr_threshold_Wm) and (Tmax > 1700.0):
