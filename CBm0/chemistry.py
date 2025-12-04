@@ -9,9 +9,25 @@ from .physics import (
 )
 
 
-def compute_sources_wd2(T, rho, Cp_mix, YF, YO, YC, YC2, YW):
-    """
-    Two-step Westbrook–Dryer CH4 mechanism (for existing CH4 combustion).
+def compute_sources_wd2(
+    T,
+    rho,
+    Cp_mix,
+    YF,
+    YO,
+    YC,
+    YC2,
+    YW,
+    A1_mult: float = 1.0,
+    Ea1_mult: float = 1.0,
+    A2_mult: float = 1.0,
+    Ea2_mult: float = 1.0,
+):
+    """Two-step Westbrook–Dryer CH4 mechanism.
+
+    The multipliers (A*_mult, Ea*_mult) act as global knobs on the pre-exponential
+    factors and activation energies and are intended for sensitivity/teaching
+    studies
     """
     Tclip = np.maximum(T, 1.0); rho_safe = np.maximum(rho, 1e-30)
     C_CH4 = np.maximum(0.0, rho * YF / (M_CH4 + 1e-30))
@@ -19,8 +35,14 @@ def compute_sources_wd2(T, rho, Cp_mix, YF, YO, YC, YC2, YW):
     C_CO  = np.maximum(0.0, rho * YC / (M_CO  + 1e-30))
     C_H2O = np.maximum(0.0, rho * YW / (M_H2O + 1e-30))
     eps = 1e-30
-    r1 = WD_A1_SI * np.exp(-WD_Ea1 / (R_u * Tclip)) * (C_CH4 + eps)**WD_a1_CH4 * (C_O2 + eps)**WD_a1_O2
-    r2 = WD_A2_SI * np.exp(-WD_Ea2 / (R_u * Tclip)) * (C_CO  + eps)**WD_a2_CO  * (C_O2 + eps)**WD_a2_O2 * (C_H2O + eps)**WD_a2_H2O
+
+    A1_eff = WD_A1_SI * A1_mult
+    Ea1_eff = WD_Ea1 * Ea1_mult
+    A2_eff = WD_A2_SI * A2_mult
+    Ea2_eff = WD_Ea2 * Ea2_mult
+
+    r1 = A1_eff * np.exp(-Ea1_eff / (R_u * Tclip)) * (C_CH4 + eps)**WD_a1_CH4 * (C_O2 + eps)**WD_a1_O2
+    r2 = A2_eff * np.exp(-Ea2_eff / (R_u * Tclip)) * (C_CO  + eps)**WD_a2_CO  * (C_O2 + eps)**WD_a2_O2 * (C_H2O + eps)**WD_a2_H2O
     omega1_mf = (r1 * M_CH4) / rho_safe
     omega2_mf = (r2 * M_CO)  / rho_safe
 
@@ -49,10 +71,21 @@ def compute_sources_wd2(T, rho, Cp_mix, YF, YO, YC, YC2, YW):
     return S_T, S_YF, S_YO, S_YC, S_YC2, S_YW, HRR_chem
 
 
-def compute_sources_h2_global(T, rho, Cp_mix, YF, YO, YW):
-    """
-    Global one-step H2 + 0.5 O2 -> H2O reaction model.
-    YF: H2, YO: O2, YW: H2O
+def compute_sources_h2_global(
+    T,
+    rho,
+    Cp_mix,
+    YF,
+    YO,
+    YW,
+    A_mult: float = 1.0,
+    Ea_mult: float = 1.0,
+):
+    """Global one-step H2 + 0.5 O2 -> H2O reaction model.
+
+    YF: H2, YO: O2, YW: H2O.
+    The multipliers A_mult and Ea_mult act on the global pre-exponential
+    factor and activation energy, mainly for sensitivity/educational use.
     """
     Tclip = np.maximum(T, 300.0)
     rho_safe = np.maximum(rho, 1e-30)
@@ -62,8 +95,8 @@ def compute_sources_h2_global(T, rho, Cp_mix, YF, YO, YW):
     C_O2 = np.maximum(0.0, rho_safe * YO / (M_O2 + 1e-30))
 
     # Simple global rate: r = A exp(-Ea/T) [H2]^0.87 [O2]^1.1
-    A = 1.0e11
-    Ea_over_R = 6900.0
+    A = 1.0e11 * A_mult
+    Ea_over_R = 6900.0 * Ea_mult
     r = A * np.exp(-Ea_over_R / np.maximum(Tclip, 1e-6)) * (C_H2**0.87) * (C_O2**1.10)
 
     # mass-fraction source terms [1/s]
@@ -113,3 +146,4 @@ def thermal_NO_source(T, rho, YF, YO, YC, YC2, YW):
     S_YNO = r_NO * M_NO / rho_safe  # [1/s]
 
     return S_YNO
+
