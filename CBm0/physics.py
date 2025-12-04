@@ -134,6 +134,65 @@ def cp_mixture_mass(T, YF, YO, YC, YC2, YW, fuel_type: str = "CH4"):
     )
 
 
+# -------------------------
+# Thermo LUT utilities
+# -------------------------
+
+def build_cp_lut(T_min: float = 200.0, T_max: float = 4000.0, n_T: int = 801, fuel_type: str = "CH4"):
+    """Precompute species cp(T) on a 1D temperature grid for fast lookup.
+
+    Note: The LUT is meant for the "fast" mode; the reference mode continues
+    to use analytic Shomate evaluation for maximal accuracy.
+    """
+
+    T_grid = np.linspace(T_min, T_max, n_T)
+    Cp_CH4, Cp_O2, Cp_N2, Cp_CO, Cp_CO2, Cp_H2O = cp_species_mass(T_grid)
+
+    if fuel_type.upper() == "H2":
+        Cp_fuel = cp_molar_shomate_field('H2', T_grid) / M_H2
+    else:
+        Cp_fuel = Cp_CH4
+
+    return {
+        "T_grid": T_grid,
+        "Cp_fuel": Cp_fuel,
+        "Cp_O2": Cp_O2,
+        "Cp_N2": Cp_N2,
+        "Cp_CO": Cp_CO,
+        "Cp_CO2": Cp_CO2,
+        "Cp_H2O": Cp_H2O,
+    }
+
+
+def cp_mixture_mass_lut(T, YF, YO, YC, YC2, YW, lut, fuel_type: str = "CH4"):
+    """Mixture cp(T) on mass basis using a precomputed LUT and linear interpolation.
+
+    This is primarily used in the "fast" mode to reduce the number of Shomate
+    evaluations at runtime.
+    """
+
+    T_grid = lut["T_grid"]
+    Tclip = np.clip(T, T_grid[0], T_grid[-1])
+
+    Cp_fuel = np.interp(Tclip, T_grid, lut["Cp_fuel"])
+    Cp_O2   = np.interp(Tclip, T_grid, lut["Cp_O2"])
+    Cp_N2   = np.interp(Tclip, T_grid, lut["Cp_N2"])
+    Cp_CO   = np.interp(Tclip, T_grid, lut["Cp_CO"])
+    Cp_CO2  = np.interp(Tclip, T_grid, lut["Cp_CO2"])
+    Cp_H2O  = np.interp(Tclip, T_grid, lut["Cp_H2O"])
+
+    YN2 = np.clip(1.0 - (YF + YO + YC + YC2 + YW), 0.0, 1.0)
+
+    return (
+        YF * Cp_fuel +
+        YO * Cp_O2 +
+        YC * Cp_CO +
+        YC2 * Cp_CO2 +
+        YW * Cp_H2O +
+        YN2 * Cp_N2
+    )
+
+
 # Viscosity models
 Tref = 300.0
 SUTH = {
@@ -278,4 +337,28 @@ def D_species_T_all(T, fuel_type: str = "CH4"):
     D_n2 = D_ref['N2'] * scale
 
     return D_ch4_or_h2, D_o2, D_co, D_co2, D_h2o, D_n2
+
+
+# -------------------------
+# Simplified Le=1 transport
+# -------------------------
+
+def mu_powerlaw_mixture(T, mu_ref: float = 1.8e-5, T_ref: float = 300.0, n: float = 0.7):
+    """Simple power-law mixture viscosity model mu(T) = mu_ref (T/T_ref)^n.
+
+    Used in the Le=1 "fast" transport mode as a cheap approximation.
+    """
+
+    Tclip = np.maximum(T, 50.0)
+    return mu_ref * (Tclip / T_ref) ** n
+
+
+def D_le1_equivalent(alpha_loc):
+    """Return a single equivalent diffusion coefficient for all species.
+
+    In the Le=1 model we approximate D_i ≈ alpha (thermal diffusivity).
+    """
+
+    return alpha_loc
+
 
