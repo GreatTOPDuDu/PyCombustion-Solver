@@ -1,0 +1,31 @@
+# Fast demo configuration for CBm0.
+# This file is intended for quick, interactive runs (e.g., tutorials).
+
+mode: fast                  # enables LUT thermo + simplified transport
+kinetics_model: wd2
+fuel_type: CH4
+
+# Smaller grid and shorter runtime for speed
+Nx: 81
+Ny: 161
+Lx: 0.06
+Ly: 0.12
+
+t_final: 0.5
+cfl_adv: 0.35
+cfl_diff: 0.35
+
+# Transport (Le=1, consistent with mode="fast")
+Pr_mix_ref: 0.7
+transport_model: Le1
+
+# Chemistry (still on, but can be scaled via multipliers)
+CHEM_SUBSTEPS: 15
+chemistry_on: true
+wd2_A_mult: 1.0
+wd2_Ea_mult: 1.0
+
+# Output/monitoring
+save_every: 5
+monitor_interval: 10
+monitor_centerline: true
