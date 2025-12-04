@@ -1,6 +1,6 @@
 # Demo configuration for CBm0  
-Nx: 161          
-Ny: 321         
+Nx: 81          
+Ny: 161         
 Lx: 0.04         # [m] 
 Ly: 0.08         # [m] 
 v_fuel: 0.2      # [m/s] 
@@ -14,6 +14,7 @@ inlet_mode: 'uniform'
 mixing_mode: 'stratified'
 output_base_dir: 'out'
 output_method_dir: 'joss_default'
+
 
 
 
