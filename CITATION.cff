@@ -10,8 +10,8 @@ authors:
 repository-code: "https://github.com/GreatTOPDuDu/PyCombustion-Solver"
 url: "https://github.com/GreatTOPDuDu/PyCombustion-Solver"
 license: Apache-2.0
-version: 0.1.0
-date-released: 2025-11-28
+version: 0.1.6
+date-released: 2025-12-04
 keywords:
   - CFD
   - combustion
