@@ -65,54 +65,18 @@ py examples/run_demo.py
 Below are step-by-step instructions for common environments.
 
 ### Windows (PowerShell)
-- **Create venv:**
-   ```powershell
-   py -3.11 -m venv .venv
-   ```
-- **Activate venv:**
-   ```powershell
-   .\.venv\Scripts\Activate
-   ```
-- **Install in editable mode:**
-   ```powershell
-   pip install -e .
-   ```
 - **Run demo:**
    ```powershell
    py examples/run_demo.py
    ```
 
 ### Windows (Command Prompt / cmd)
-- **Create venv:**
-   ```cmd
-   py -3.11 -m venv .venv
-   ```
-- **Activate venv:**
-   ```cmd
-   .\.venv\Scripts\activate
-   ```
-- **Install in editable mode:**
-   ```cmd
-   pip install -e .
-   ```
 - **Run demo:**
    ```cmd
    py examples\run_demo.py
    ```
 
 ### Linux/macOS (Terminal)
-- **Create venv:**
-   ```bash
-   python3 -m venv .venv
-   ```
-- **Activate venv:**
-   ```bash
-   source .venv/bin/activate
-   ```
-- **Install in editable mode:**
-   ```bash
-   pip install -e .
-   ```
 - **Run demo:**
    ```bash
    python3 examples/run_demo.py
@@ -149,6 +113,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
