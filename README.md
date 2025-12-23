@@ -103,6 +103,10 @@ The code is structured as follows:
 - `CBm0/chemistry.py`: Chemical reaction source terms.
 - `CBm0/config.py`: Simulation settings.
 - `CBm0/io_utils.py`: Simulation result visualization.
+- 
+![(0 6,0 2)_t=1 5_core8_thick](https://github.com/user-attachments/assets/245977a8-2625-48ae-bacf-6bebabc9335c)
+![(0 6,0 2)_t=1 5_core8_thick_HRR](https://github.com/user-attachments/assets/faf3561b-22bb-4911-b2e0-b0cd0daedd26)
+
 
 ## Contributing
 
@@ -115,6 +119,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
