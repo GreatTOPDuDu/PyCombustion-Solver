@@ -103,18 +103,7 @@ The code is structured as follows:
 - `CBm0/chemistry.py`: Reaction source terms (CH4 two-step Westbrook–Dryer, global H2 one-step, optional thermal NO source).
 - `CBm0/config.py`: Simulation settings (grid, inlets, numerics/CFL, chemistry, transport/thermo presets, output options).
 - `CBm0/io_utils.py`: Output utilities (directory creation, contour plots, log-scale plots, run_config snapshot, plotting ranges).
- contour drawn on a log scale; near-zero values are clipped to a small positive threshold to remain compatible with logarithmic plotting.
-
-
-### Reproducing the example run
-
-1) Edit parameters in `CBm0/config.py` (the `Config` dataclass defaults).
-2) Run the solver:
-
-```bash
-python -m CBm0
-
-
+ contour drawn on a log scale; near-zero values are clipped to a small positive threshold to remain compatible with logarithmic plotting
 ![(0 6,0 2)_t=1 5_core8_thick](https://github.com/user-attachments/assets/245977a8-2625-48ae-bacf-6bebabc9335c) ![(0 6,0 2)_t=1 5_core8_thick_HRR](https://github.com/user-attachments/assets/faf3561b-22bb-4911-b2e0-b0cd0daedd26)
 
 
@@ -129,6 +118,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
