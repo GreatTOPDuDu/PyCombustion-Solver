@@ -105,7 +105,6 @@ The code is structured as follows:
 - `CBm0/io_utils.py`: Output utilities (directory creation, contour plots, log-scale plots, run_config snapshot, plotting ranges).
  contour drawn on a log scale; near-zero values are clipped to a small positive threshold to remain compatible with logarithmic plotting.
 
----
 
 ### Reproducing the example run
 
@@ -130,6 +129,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
