@@ -101,6 +101,8 @@ The code is structured as follows:
 - `CBm0/numerics.py`: Finite volume schemes (fluxes, pressure solver).
 - `CBm0/physics.py`: Thermodynamic and transport properties.
 - `CBm0/chemistry.py`: Chemical reaction source terms.
+- `CBm0/config.py`: Simulation settings.
+- 'CBm0/io_utils.py': Simulation result visualization.
 
 ## Contributing
 
@@ -113,6 +115,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
