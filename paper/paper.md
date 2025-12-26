@@ -98,7 +98,7 @@ $$
 which is solved by a multigrid V-cycle. The corrected velocity is updated as
 
 $$
-\boldsymbol{u}^{n+1} = \boldsymbol{u}^* - \Delta t \; \frac{1}{\rho} \nabla p'
+\boldsymbol{u}^{n+1} = \boldsymbol{u}^* - \Delta t \ \frac{1}{\rho} \nabla p'
 $$
 
 Chemical source terms $\dot{\omega}_\phi$ are integrated explicitly using substepping within each global time step, keeping the implementation simple while allowing users to explore the interaction between transport and reaction timescales.
@@ -112,7 +112,7 @@ The software is distributed as a Python package with all example cases and confi
   ```bash
   git clone https://github.com/GreatTOPDuDu/PyCombustion-Solver.git
   cd PyCombustion-Solver
-  pip install -e .
+  pip install -e.
   ```
 
 2. Run one of the bundled examples, for instance the buoyant diffusion flame demo:
@@ -133,6 +133,7 @@ The example cases bundled with the code are designed to exercise the main physic
 - **Buoyant diffusion flame and thermal plume**: A laminar, buoyancy-driven diffusion flame in a vertical channel is provided as a representative reacting-flow case. The simulated centerline temperature decay and flame height show the qualitative trends expected from classic fire-plume experiments and correlations (e.g., Heskestad, 1983; McCaffrey, 1979), and demonstrate the coupled action of advection, diffusion, buoyancy, and heat release in a configuration that can be reproduced directly from the example scripts.
 
 # References
+
 
 
 
