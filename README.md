@@ -96,14 +96,50 @@ python -m pytest
 
 ## Documentation
 
-The code is structured as follows:
-- `CBm0/main.py`: Main solver loop (time stepping, BCs, projection, chemistry subcycling, diagnostics/output).
+PyCombustion-Solver implements a classical low-Mach, incompressible/reacting-flow formulation on a structured 2D Cartesian grid. The numerical methods are chosen to balance robustness, clarity, and pedagogical value, while remaining close to schemes used in production CFD codes.
+
+### Governing equations and flow model
+
+- **Momentum**: 2D incompressible Navier–Stokes equations with variable density, including viscous diffusion and buoyancy forcing.
+- **Scalars**: Convection–diffusion–reaction equations for temperature and species (fuel, oxidizer, products, water, NOx).
+- **Incompressibility constraint**: A pressure-projection step enforces a divergence-free velocity field, which is standard for low-Mach reacting flows where acoustics are filtered out.
+
+### Spatial discretization
+
+- **Finite-volume formulation**: All variables are stored at cell centers on a uniform grid; fluxes are evaluated at cell faces.
+- **Convection**: MUSCL/TVD schemes (Minmod, Superbee, Van Leer, etc.) are used to reconstruct face values. These schemes are:
+   - formally second-order accurate in smooth regions, and
+   - total-variation-diminishing (TVD), which suppresses spurious oscillations near steep gradients while keeping numerical diffusion under control.
+- **Diffusion and pressure**: Second-order centered differences are used for viscous and thermal diffusion and for the pressure–Poisson operator. This choice keeps the stencil simple and symmetric, which is helpful for multigrid solvers and for students reading the code.
+
+### Time integration and stability
+
+- **Explicit time stepping**: The solver uses first-order explicit (forward Euler) time integration for momentum, scalars, and chemistry source terms.
+- **CFL-based time step control**: The time step is computed from separate convective and diffusive CFL limits. Although first-order explicit schemes are only conditionally stable, enforcing these CFL criteria makes the method robust and easy to reason about in an educational setting.
+- **Chemistry subcycling**: Stiff chemical source terms are integrated with several smaller substeps within each global time step. This keeps the implementation simple (no external ODE solvers) while maintaining reasonable stability for typical laminar/diffusion-flame test cases.
+
+### Pressure projection and Poisson solver
+
+- **Projection method**: After computing an intermediate velocity without pressure, a variable-coefficient Poisson equation is solved for the pressure correction. The corrected velocity then satisfies the incompressibility constraint.
+- **Multigrid V-cycle**: The Poisson problem is solved using a geometric multigrid V-cycle implemented in `CBm0/numerics.py`. Multigrid is chosen because it is conceptually simple yet demonstrates how scalable pressure solvers are built in larger CFD codes.
+
+### Chemistry, thermodynamics, and transport
+
+- **Global reaction mechanisms**: The methane (CH4) two-step Westbrook–Dryer mechanism and a one-step global hydrogen (H2) mechanism are used. These global models capture key flame behavior at a fraction of the cost of detailed chemistry, making them well-suited for interactive, Python-based simulations.
+- **Thermodynamics**: Mixture properties are computed from Shomate polynomials for species heat capacities and enthalpies. This allows realistic temperature dependence without relying on external databases.
+- **Transport**: Mixture viscosity and species diffusion coefficients follow Wilke-type mixture rules, with options for simplified unity-Lewis-number transport. These models are common in low-Mach combustion solvers and keep the implementation compact.
+
+### Code organization
+
+- `CBm0/main.py`: Main solver loop (time stepping, boundary conditions, projection, chemistry subcycling, diagnostics/output).
 - `CBm0/numerics.py`: Finite-volume operators (TVD/MUSCL advection, diffusion, divergence, multigrid Poisson solver).
-- `CBm0/physics.py`: Thermodynamic & transport models (Shomate cp/h, mixture gas constant and density, viscosity and diffusion, optional thermo LUT, optional Le=1 transport).
+- `CBm0/physics.py`: Thermodynamic and transport models (Shomate cp/h, mixture gas constant and density, viscosity and diffusion, optional thermo lookup tables, optional Le = 1 transport).
 - `CBm0/chemistry.py`: Reaction source terms (CH4 two-step Westbrook–Dryer, global H2 one-step, optional thermal NO source).
 - `CBm0/config.py`: Simulation settings (grid, inlets, numerics/CFL, chemistry, transport/thermo presets, output options).
-- `CBm0/io_utils.py`: Output utilities (directory creation, contour plots, log-scale plots, run_config snapshot, plotting ranges).
- contour drawn on a log scale; near-zero values are clipped to a small positive threshold to remain compatible with logarithmic plotting
+- `CBm0/io_utils.py`: Output utilities (directory creation, contour plots, log-scale plots, run_config snapshots, plotting ranges).
+
+Temperature and heat-release-rate contours in the example cases are often drawn on a logarithmic scale. Very small positive thresholds are applied to avoid numerical issues when taking the logarithm of near-zero fields.
+
 ![(0 6,0 2)_t=1 5_core8_thick](https://github.com/user-attachments/assets/245977a8-2625-48ae-bacf-6bebabc9335c) ![(0 6,0 2)_t=1 5_core8_thick_HRR](https://github.com/user-attachments/assets/faf3561b-22bb-4911-b2e0-b0cd0daedd26)
 
 
