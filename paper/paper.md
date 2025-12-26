@@ -45,7 +45,7 @@ PyCombustion-Solver advances a standard set of low-Mach reacting-flow equations 
 - **Continuity (incompressible constraint)**
 
   $$
-  \nabla \cdot \boldsymbol{u} = 0.
+  \nabla \cdot \boldsymbol{u} = 0
   $$
 
 - **Momentum equations**
@@ -55,7 +55,7 @@ PyCombustion-Solver advances a standard set of low-Mach reacting-flow equations 
   + \nabla \cdot (\boldsymbol{u}\boldsymbol{u})
   = -\frac{1}{\rho}\nabla p
     + \nabla \cdot (\nu \nabla \boldsymbol{u})
-    + \boldsymbol{g}_\text{buoy},
+    + \boldsymbol{g}_\text{buoy}
   $$
 
   where $\rho(T, Y_k)$ is the mixture density, $\nu$ is the kinematic viscosity, and $\boldsymbol{g}_\text{buoy}$ represents buoyancy forces.
@@ -66,7 +66,7 @@ PyCombustion-Solver advances a standard set of low-Mach reacting-flow equations 
   \frac{\partial \phi}{\partial t}
   + \nabla \cdot (\boldsymbol{u}\,\phi)
   = \nabla \cdot (D_\phi \nabla \phi)
-    + \dot{\omega}_\phi,
+    + \dot{\omega}_\phi
   $$
 
   with $\phi \in \{T, Y_k\}$, effective diffusivity $D_\phi$, and chemical source term $\dot{\omega}_\phi$ obtained from the global reaction mechanisms.
@@ -83,7 +83,7 @@ $$
 \frac{C_\text{adv}}{|u|/\Delta x + |v|/\Delta y},
 \qquad
 \Delta t_\text{diff} =
-\frac{C_\text{diff}}{\kappa (1/\Delta x^2 + 1/\Delta y^2)},
+\frac{C_\text{diff}}{\kappa (1/\Delta x^2 + 1/\Delta y^2)}
 $$
 
 and the solver uses $\Delta t = \min(\Delta t_\text{adv}, \Delta t_\text{diff})$. Here $C_\text{adv}$ and $C_\text{diff}$ are user-configurable CFL numbers and $\kappa$ represents the largest relevant diffusion coefficient (thermal, viscous, or species).
@@ -92,13 +92,13 @@ At each time step, an intermediate velocity $\boldsymbol{u}^*$ is first obtained
 
 $$
 \nabla \cdot \left( \frac{1}{\rho} \nabla p' \right)
-  = \frac{1}{\Delta t} \nabla \cdot \boldsymbol{u}^*,
+  = \frac{1}{\Delta t} \nabla \cdot \boldsymbol{u}^*
 $$
 
 which is solved by a multigrid V-cycle. The corrected velocity is updated as
 
 $$
-\boldsymbol{u}^{n+1} = \boldsymbol{u}^* - \Delta t \; \frac{1}{\rho} \nabla p'.
+\boldsymbol{u}^{n+1} = \boldsymbol{u}^* - \Delta t \; \frac{1}{\rho} \nabla p'
 $$
 
 Chemical source terms $\dot{\omega}_\phi$ are integrated explicitly using substepping within each global time step, keeping the implementation simple while allowing users to explore the interaction between transport and reaction timescales.
@@ -133,3 +133,4 @@ The example cases bundled with the code are designed to exercise the main physic
 - **Buoyant diffusion flame and thermal plume**: A laminar, buoyancy-driven diffusion flame in a vertical channel is provided as a representative reacting-flow case. The simulated centerline temperature decay and flame height show the qualitative trends expected from classic fire-plume experiments and correlations (e.g., Heskestad, 1983; McCaffrey, 1979), and demonstrate the coupled action of advection, diffusion, buoyancy, and heat release in a configuration that can be reproduced directly from the example scripts.
 
 # References
+
