@@ -44,19 +44,19 @@ PyCombustion-Solver advances a standard set of low-Mach reacting-flow equations 
 
 - **Continuity (incompressible constraint)**
 
-  $
+  $$
   \nabla \cdot \boldsymbol{u} = 0
-  $
+  $$
 
 - **Momentum equations**
 
-  $
+  $$
   \frac{\partial \boldsymbol{u}}{\partial t}
   + \nabla \cdot (\boldsymbol{u}\boldsymbol{u})
   = -\frac{1}{\rho}\nabla p
     + \nabla \cdot (\nu \nabla \boldsymbol{u})
     + \boldsymbol{g}_\text{buoy}
-  $
+  $$
 
   where $\rho(T, Y_k)$ is the mixture density, $\nu$ is the kinematic viscosity, and $\boldsymbol{g}_\text{buoy}$ represents buoyancy forces.
 
@@ -133,6 +133,7 @@ The example cases bundled with the code are designed to exercise the main physic
 - **Buoyant diffusion flame and thermal plume**: A laminar, buoyancy-driven diffusion flame in a vertical channel is provided as a representative reacting-flow case. The simulated centerline temperature decay and flame height show the qualitative trends expected from classic fire-plume experiments and correlations (e.g., Heskestad, 1983; McCaffrey, 1979), and demonstrate the coupled action of advection, diffusion, buoyancy, and heat release in a configuration that can be reproduced directly from the example scripts.
 
 # References
+
 
 
 
