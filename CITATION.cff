@@ -10,12 +10,13 @@ authors:
 repository-code: "https://github.com/GreatTOPDuDu/PyCombustion-Solver"
 url: "https://github.com/GreatTOPDuDu/PyCombustion-Solver"
 license: Apache-2.0
-version: 0.1.7
-date-released: 2025-12-04
+version: 0.1.8
+date-released: 2025-12-26
 keywords:
   - CFD
   - combustion
   - python
   - numba
   - reacting-flow
+
 
