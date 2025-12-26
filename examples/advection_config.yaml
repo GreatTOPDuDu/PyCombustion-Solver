@@ -1,0 +1,15 @@
+# 1D-like scalar advection test using CBm0 MUSCL/TVD schemes
+
+Nx: 201          # number of cells in x
+Ny: 3            # thin domain in y (quasi-1D)
+L: 1.0           # domain length in x
+U: 1.0           # uniform advection speed in x
+
+cfl_adv: 0.4     # convective CFL number
+T_final: 1.0     # final time (one domain traversal at U=1)
+
+# Limiters to test
+limiters:
+  - minmod
+  - superbee
+  - vanleer

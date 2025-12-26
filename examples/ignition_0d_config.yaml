@@ -1,0 +1,12 @@
+# Configuration for the 0D ignition validation case
+
+T0: 1100.0      # initial temperature [K]
+YF0: 0.06       # initial fuel mass fraction
+YO0: 0.21       # initial O2 mass fraction
+P0: 1.0e5       # pressure [Pa]
+
+fuel_type: CH4  # currently CH4 global mechanism is used
+
+# Time integration parameters
+T_final: 0.02   # final time [s]
+dt: 1.0e-7      # time step [s] for the coarse run

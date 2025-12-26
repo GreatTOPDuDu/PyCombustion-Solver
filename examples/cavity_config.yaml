@@ -1,0 +1,22 @@
+# Lid-driven cavity validation case for CBm0 numerics
+# Non-dimensional square cavity: 0 <= x <= 1, 0 <= y <= 1
+# Re is based on cavity length L and lid velocity U_lid.
+# For comparison with Ghia et al. (1982), we use Re=100
+# and a 129x129 uniform grid (Ghia used a non-uniform 129x129 grid).
+
+Nx: 129          # number of cells in x (uniform grid)
+Ny: 129          # number of cells in y (uniform grid)
+L: 1.0           # cavity length/height (non-dimensional)
+Re: 100          # Reynolds number (Ghia et al. benchmark)
+U_lid: 1.0       # lid velocity (top wall)
+
+# Time-stepping parameters
+cfl_adv: 0.4     # convective CFL
+cfl_diff: 0.4    # diffusive CFL
+T_final: 40.0    # final dimensionless time (run until near steady state)
+
+# Multigrid / projection options
+mg_cycles_per_step: 5
+mg_pre_smooth: 3
+mg_post_smooth: 3
+mg_coarsest_min: 8
