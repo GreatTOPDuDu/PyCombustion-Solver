@@ -7,24 +7,51 @@ import numba
 # TVD limiter and operators
 # ---------------------------
 
-def _limiter(a, b, kind='minmod'):
-    if kind == 'minmod':
-        s = np.sign(a) + np.sign(b)
-        return 0.5 * s * np.minimum(np.abs(a), np.abs(b))
-    elif kind == 'vanleer':
-        r_num = a * b * 2.0
-        r_den = a + b + 1e-30
-        return r_num / r_den
-    elif kind == 'superbee':
-        zero = np.zeros_like(a)
-        return np.maximum.reduce([
-            zero,
-            np.minimum(2.0 * np.abs(a) * np.sign(b), np.abs(b) * np.sign(b)),
-            np.minimum(np.abs(a) * np.sign(a), 2.0 * np.abs(b) * np.sign(a))
-        ])
+def _limiter(a, b, kind: str = 'minmod'):
+    """TVD slope limiter in r-form.
+
+    Parameters
+    ----------
+    a : ndarray
+        Backward difference  Δ^-φ = φ_i - φ_{i-1}.
+    b : ndarray
+        Forward  difference  Δ^+φ = φ_{i+1} - φ_i.
+    kind : str
+        'minmod', 'vanleer', or 'superbee'.
+
+    Returns
+    -------
+    ndarray
+        Limited slope, φ(r) * Δ^+φ, where r = Δ^-φ / Δ^+φ.
+    """
+
+    eps = 1e-30
+    r = np.zeros_like(a)
+    mask = np.abs(b) > eps
+    r[mask] = a[mask] / b[mask]
+
+    k = (kind or 'minmod').lower()
+
+    if k == 'minmod':
+        # φ(r) = max(0, min(1, r))
+        phi = np.maximum(0.0, np.minimum(1.0, r))
+    elif k == 'vanleer':
+        # φ(r) = (r + |r|) / (1 + |r|)
+        phi = (r + np.abs(r)) / (1.0 + np.abs(r))
+    elif k == 'superbee':
+        # φ(r) = max(0, min(2r,1), min(r,2))
+        phi = np.maximum(
+            0.0,
+            np.maximum(
+                np.minimum(2.0 * r, 1.0),
+                np.minimum(r, 2.0),
+            ),
+        )
     else:
-        s = np.sign(a) + np.sign(b)
-        return 0.5 * s * np.minimum(np.abs(a), np.abs(b))
+        # Default back to minmod
+        phi = np.maximum(0.0, np.minimum(1.0, r))
+
+    return phi * b
 
 
 def tvd_div(phi, u, v, dx, dy, limiter_kind='minmod'):
