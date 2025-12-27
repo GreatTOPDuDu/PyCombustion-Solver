@@ -140,7 +140,7 @@ The example cases bundled with the code are designed to exercise the main physic
 <table>
   <tr>
     <td align="center">
-     <img width="1800" height="1200" alt="advection_top_hat_limiters" src="https://github.com/user-attachments/assets/8b9c3205-3c40-4f8a-8ee0-0871b9874ae1" />
+     <img width="900" height="600" alt="advection_top_hat_limiters" src="https://github.com/user-attachments/assets/8b9c3205-3c40-4f8a-8ee0-0871b9874ae1" />
       <br />
       <b>Figure 3: Advection Validation
   </tr>
@@ -150,7 +150,7 @@ The example cases bundled with the code are designed to exercise the main physic
 <table>
   <tr>
     <td align="center">
-     <img width="1800" height="1200" alt="ignition_T_history" src="https://github.com/user-attachments/assets/872921cb-949f-4bdb-9bd0-488013be0057" />
+     <img width="900" height="600" alt="ignition_T_history" src="https://github.com/user-attachments/assets/872921cb-949f-4bdb-9bd0-488013be0057" />
       <br />
       <b>Figure 4: Advection configuration
   </tr>
@@ -166,6 +166,7 @@ The example cases bundled with the code are designed to exercise the main physic
   </tr>
 </table>
 # References
+
 
 
 
