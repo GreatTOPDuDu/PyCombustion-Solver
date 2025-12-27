@@ -51,11 +51,7 @@ $$
 - **Momentum equations**
 
 $$
-\frac{\partial \boldsymbol{u}}{\partial t}
-  + \nabla \cdot (\boldsymbol{u}\boldsymbol{u})
-= -\frac{1}{\rho}\nabla p
-  + \nabla \cdot (\nu \nabla \boldsymbol{u})
-  + \boldsymbol{g}_\text{buoy}
+\frac{\partial \boldsymbol{u}}{\partial t} + \nabla \cdot (\boldsymbol{u}\boldsymbol{u}) = -\frac{1}{\rho}\nabla p + \nabla \cdot (\nu \nabla \boldsymbol{u})  + \boldsymbol{g}_\text{buoy}
 $$
 
   where $\rho(T, Y_k)$ is the mixture density, $\nu$ is the kinematic viscosity, and $\boldsymbol{g}_\text{buoy}$ represents buoyancy forces.
@@ -133,6 +129,7 @@ The example cases bundled with the code are designed to exercise the main physic
 - **Buoyant diffusion flame and thermal plume (full reacting-flow solver)**: A laminar, buoyancy-driven diffusion flame in a vertical channel, driven by a fuel jet into coflowing oxidiser, is provided as a representative reacting-flow case in `examples/run_demo.py`. The simulated centreline temperature decay and flame height show the qualitative trends expected from classic fire-plume experiments and correlations (e.g., Heskestad [@Heskestad1983]; McCaffrey [@McCaffrey1979]). This case exercises the full solver (advection, diffusion, projection, variable density, and heat release) and is also used to explore grid-sensitivity by running on multiple meshes and comparing the final temperature fields and centreline profiles.
 
 # References
+
 
 
 
