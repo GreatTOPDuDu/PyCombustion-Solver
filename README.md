@@ -59,29 +59,6 @@ You can run the included demo script to see the solver in action:
 ```bash
 py examples/run_demo.py
 ```
-
-## Usage by Environment
-
-Below are step-by-step instructions for common environments.
-
-### Windows (PowerShell)
-- **Run demo:**
-   ```powershell
-   py examples/run_demo.py
-   ```
-
-### Windows (Command Prompt / cmd)
-- **Run demo:**
-   ```cmd
-   py examples\run_demo.py
-   ```
-
-### Linux/macOS (Terminal)
-- **Run demo:**
-   ```bash
-   python3 examples/run_demo.py
-   ```
-
 ### Notes
 - If `py` is unavailable on Linux/macOS, use `python3`.
 - Numba will JIT-compile on first run; the initial execution may be slower.
@@ -168,6 +145,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
