@@ -142,12 +142,12 @@ The example cases bundled with the code are designed to exercise the main physic
 <table>
   <tr>
     <td align="center">
-      <img width="1800" height="1200" alt="advection_top_hat_limiters" src="https://github.com/user-attachments/assets/f77b8ddc-db77-46eb-9678-bd913c1df39c" />
+      <img width="2400" height="1800" alt="advection_top_hat_limiters" src="https://github.com/user-attachments/assets/f77b8ddc-db77-46eb-9678-bd913c1df39c" />
       <br />
       <b>Figure 3: TVD advection verification
     </td>
     <td align="center">
-      <img width="1800" height="1200" alt="ignition_T_history" src="https://github.com/user-attachments/assets/48618a43-d47c-4726-b5c9-d0a6ea62e8b7" />
+      <img width="2400" height="1800" alt="ignition_T_history" src="https://github.com/user-attachments/assets/48618a43-d47c-4726-b5c9-d0a6ea62e8b7" />
       <br />
       <b>Figure 4: 0D ignition mesh regression test
     </td>
@@ -176,6 +176,7 @@ The example cases bundled with the code are designed to exercise the main physic
 </table>
 
 # References
+
 
 
 
