@@ -59,10 +59,7 @@ $$
 - **Scalar transport (temperature and species)**
 
 $$
-\frac{\partial \phi}{\partial t}
-+ \nabla \cdot (\boldsymbol{u}\,\phi)
-= \nabla \cdot (D_\phi \nabla \phi)
-  + \dot{\omega}_\phi
+\frac{\partial \phi}{\partial t} + \nabla \cdot (\boldsymbol{u}\,\phi) = \nabla \cdot (D_\phi \nabla \phi) + \dot{\omega}_\phi
 $$
 
   with $\phi \in \{T, Y_k\}$, effective diffusivity $D_\phi$, and chemical source term $\dot{\omega}_\phi$ obtained from the global reaction mechanisms.
@@ -129,6 +126,7 @@ The example cases bundled with the code are designed to exercise the main physic
 - **Buoyant diffusion flame and thermal plume (full reacting-flow solver)**: A laminar, buoyancy-driven diffusion flame in a vertical channel, driven by a fuel jet into coflowing oxidiser, is provided as a representative reacting-flow case in `examples/run_demo.py`. The simulated centreline temperature decay and flame height show the qualitative trends expected from classic fire-plume experiments and correlations (e.g., Heskestad [@Heskestad1983]; McCaffrey [@McCaffrey1979]). This case exercises the full solver (advection, diffusion, projection, variable density, and heat release) and is also used to explore grid-sensitivity by running on multiple meshes and comparing the final temperature fields and centreline profiles.
 
 # References
+
 
 
 
