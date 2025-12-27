@@ -12,8 +12,9 @@ save_every: 20
 mg_cycles_per_step: 2  
 inlet_mode: 'uniform'
 mixing_mode: 'stratified'
-output_base_dir: 'out'
-output_method_dir: 'joss_default'
+output_base_dir: 'outputs'
+output_method_dir: 'demo_result'
+
 
 
 
