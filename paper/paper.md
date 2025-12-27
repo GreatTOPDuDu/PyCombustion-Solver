@@ -138,7 +138,7 @@ The example cases bundled with the code are designed to exercise the main physic
         
 - **Scalar advection tests (MUSCL/TVD behaviour)**: One-dimensional passive scalar advection with a top-hat initial condition and periodic boundaries is used to assess the MUSCL/TVD schemes implemented in `CBm0.numerics`. The limiter behaviour (Minmod, Superbee, Van Leer) follows the expected TVD characteristics described by van Leer [@vanLeer1977] and Sweby [@Sweby1984]: for a fixed Courant number and advection time, the Minmod limiter produces the most diffusive profile with an interface spread over roughly six grid cells, while Superbee and Van Leer resolve the front within about two cells without overshoots. These results, including the monotone limiter comparison.
 
-- **0D ignition and reaction kinetics**: Spatially homogeneous, zero-dimensional reactor tests are provided in `examples/run_ignition_0d.py` to verify the consistency of the global reaction mechanisms and thermodynamic property evaluation. For the supplied methane/air test case, coarse and reference time steps produce nearly indistinguishable temperature histories; the post-processing script reports a relative $L^2$ error in $T(t)$ that is effectively zero within numerical precision, and ignition times are therefore indistinguishable for the chosen parameter
+- **0D ignition and reaction kinetics**: Spatially homogeneous, zero-dimensional reactor tests are provided in `examples/run_ignition_0d.py` to verify the consistency of the global reaction mechanisms and thermodynamic property evaluation. For the supplied methane/air test case, coarse and reference time steps produce nearly indistinguishable temperature histories; the post-processing script reports a relative $L^2$ error in $T(t)$ that is effectively zero within numerical precision, and ignition times are therefore indistinguishable for the chosen parameter.
 <table>
   <tr>
     <td align="center">
@@ -176,6 +176,7 @@ The example cases bundled with the code are designed to exercise the main physic
 </table>
 
 # References
+
 
 
 
