@@ -149,31 +149,32 @@ The example cases bundled with the code are designed to exercise the main physic
     <td align="center">
       <img width="1800" height="1200" alt="ignition_T_history" src="https://github.com/user-attachments/assets/48618a43-d47c-4726-b5c9-d0a6ea62e8b7" />
       <br />
-      <b>Figure 4: 0D ignition regression test
+      <b>Figure 4: 0D ignition mesh regression test
     </td>
   </tr>
 </table>
 
-- **0D ignition and reaction kinetics**: Spatially homogeneous, zero-dimensional reactor tests are provided in `examples/run_ignition_0d.py` to verify the consistency of the global reaction mechanisms and thermodynamic property evaluation. For the supplied methane/air test case, coarse and reference time steps produce nearly indistinguishable temperature histories; the post-processing script reports a relative $L^2$ error in $T(t)$ that is effectively zero within numerical precision, and ignition times are therefore indistinguishable for the chosen parameters.
+- **Buoyant diffusion flame and thermal plume (full reacting-flow solver)**: A laminar, buoyancy-driven diffusion flame in a vertical channel, driven by a fuel jet into coflowing oxidiser, is provided as a representative reacting-flow case in `examples/run_demo.py`. The simulated reulsts are also used to explore grid-sensitivity by running on multiple meshes and comparing the final temperature fields and centreline profiles. The test is conducted under v_air=0.2m/s, v_fuel=0.6m/s with CH4 combustion conditions under (200,400), (250,500), (300,600) grid conditions. Figures below are temperature contours at t=1.5s.
 <table>
   <tr>
     <td align="center">
-     <img width="900" height="600" alt="ignition_T_history" src="https://github.com/user-attachments/assets/872921cb-949f-4bdb-9bd0-488013be0057" />
+      <img width="600" height="800" alt="frame_07917" src="https://github.com/user-attachments/assets/b0e4e359-4ec7-42c8-8a15-08cf00e495a5" />
       <br />
-      <b>Figure 4: Advection configuration
+      <b>Figure 5: Temperature at t=1.5s with (200,400) grid
+    </td>
+    <td align="center">
+      <img width="600" height="800" alt="frame_11640" src="https://github.com/user-attachments/assets/99c30aed-0261-40cb-8e50-8b96c61be3f2" />
+      <br />
+      <b>Figure 6: Temperature at t=1.5s with (250,500) grid
+    </td>
+    <td align="center">
+      <img width="600" height="800" alt="frame_16664" src="https://github.com/user-attachments/assets/6b36a41d-8f05-4e9e-a8c9-b2eb5b178f6b" />
+      <br />
+      <b>Figure 7: Temperature at t=1.5s with (300,600) grid
+    </td>
   </tr>
 </table>
 
-- **Buoyant diffusion flame and thermal plume (full reacting-flow solver)**: A laminar, buoyancy-driven diffusion flame in a vertical channel, driven by a fuel jet into coflowing oxidiser, is provided as a representative reacting-flow case in `examples/run_demo.py`. The simulated centreline temperature decay and flame height show the qualitative trends expected from classic fire-plume experiments and correlations (e.g., Heskestad [@Heskestad1983]; McCaffrey [@McCaffrey1979]). This case exercises the full solver (advection, diffusion, projection, variable density, and heat release) and is also used to explore grid-sensitivity by running on multiple meshes and comparing the final temperature fields and centreline profiles.
-<table>
-  <tr>
-    <td align="center">
-     <img width="1800" height="1200" alt="ignition_T_history" src="https://github.com/user-attachments/assets/872921cb-949f-4bdb-9bd0-488013be0057" />
-      <br />
-      <b>Figure 4: Advection configuration
-  </tr>
-</table>
-# References
 
 
 
