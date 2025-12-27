@@ -73,7 +73,7 @@ Time integration employs first-order explicit (forward Euler) updates for all va
 
 $$
 \Delta t_\text{adv} =
-\frac{C_\text{adv}}{|u|/\Delta x + |v|/\Delta y},
+\frac{C_\text{adv}}{|u|/\Delta x + |v|/\Delta y} ,
 \qquad
 \Delta t_\text{diff} =
 \frac{C_\text{diff}}{\kappa (1/\Delta x^2 + 1/\Delta y^2)}
@@ -126,6 +126,7 @@ The example cases bundled with the code are designed to exercise the main physic
 - **Buoyant diffusion flame and thermal plume (full reacting-flow solver)**: A laminar, buoyancy-driven diffusion flame in a vertical channel, driven by a fuel jet into coflowing oxidiser, is provided as a representative reacting-flow case in `examples/run_demo.py`. The simulated centreline temperature decay and flame height show the qualitative trends expected from classic fire-plume experiments and correlations (e.g., Heskestad [@Heskestad1983]; McCaffrey [@McCaffrey1979]). This case exercises the full solver (advection, diffusion, projection, variable density, and heat release) and is also used to explore grid-sensitivity by running on multiple meshes and comparing the final temperature fields and centreline profiles.
 
 # References
+
 
 
 
