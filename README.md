@@ -140,7 +140,20 @@ PyCombustion-Solver implements a classical low-Mach, incompressible/reacting-flo
 
 Temperature and heat-release-rate contours in the example cases are often drawn on a logarithmic scale. Very small positive thresholds are applied to avoid numerical issues when taking the logarithm of near-zero fields.
 
-![(0 6,0 2)_t=1 5_core8_thick](https://github.com/user-attachments/assets/245977a8-2625-48ae-bacf-6bebabc9335c) ![(0 6,0 2)_t=1 5_core8_thick_HRR](https://github.com/user-attachments/assets/faf3561b-22bb-4911-b2e0-b0cd0daedd26)
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/245977a8-2625-48ae-bacf-6bebabc9335c" width="100%" />
+      <br />
+      <b>설명 1: (0 6,0 2)_t=1 5_core8_thick</b>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/faf3561b-22bb-4911-b2e0-b0cd0daedd26" width="100%" />
+      <br />
+      <b>설명 2: HRR 데이터 시각화</b>
+    </td>
+  </tr>
+</table>
 
 
 ## Contributing
@@ -154,6 +167,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
