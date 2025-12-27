@@ -135,11 +135,14 @@ The example cases bundled with the code are designed to exercise the main physic
     </td>
   </tr>
 </table>
+        
 - **Scalar advection tests (MUSCL/TVD behaviour)**: One-dimensional passive scalar advection with a top-hat initial condition and periodic boundaries is used to assess the MUSCL/TVD schemes implemented in `CBm0.numerics`. The limiter behaviour (Minmod, Superbee, Van Leer) follows the expected TVD characteristics described by van Leer [@vanLeer1977] and Sweby [@Sweby1984]: for a fixed Courant number and advection time, the Minmod limiter produces the most diffusive profile with an interface spread over roughly six grid cells, while Superbee and Van Leer resolve the front within about two cells without overshoots. These results, including the monotone limiter comparison, are summarised in `advection_top_hat_limiters.png`.
+
 - **0D ignition and reaction kinetics**: Spatially homogeneous, zero-dimensional reactor tests are provided in `examples/run_ignition_0d.py` to verify the consistency of the global reaction mechanisms and thermodynamic property evaluation. For the supplied methane/air test case, coarse and reference time steps produce nearly indistinguishable temperature histories; the post-processing script reports a relative $L^2$ error in $T(t)$ that is effectively zero within numerical precision, and ignition times are therefore indistinguishable for the chosen parameters. The corresponding comparison figure is written by `examples/postprocess_ignition_0d.py`.
 - **Buoyant diffusion flame and thermal plume (full reacting-flow solver)**: A laminar, buoyancy-driven diffusion flame in a vertical channel, driven by a fuel jet into coflowing oxidiser, is provided as a representative reacting-flow case in `examples/run_demo.py`. The simulated centreline temperature decay and flame height show the qualitative trends expected from classic fire-plume experiments and correlations (e.g., Heskestad [@Heskestad1983]; McCaffrey [@McCaffrey1979]). This case exercises the full solver (advection, diffusion, projection, variable density, and heat release) and is also used to explore grid-sensitivity by running on multiple meshes and comparing the final temperature fields and centreline profiles.
 
 # References
+
 
 
 
