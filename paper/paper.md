@@ -131,18 +131,26 @@ The example cases bundled with the code are designed to exercise the main physic
     <td align="center">
       <img width="1500" height="1800" alt="cavity_v_centerline" src="https://github.com/user-attachments/assets/3e97bae3-48bf-4a55-92a7-d38afa0faf64" />
       <br />
-      <b>Figure 2: Heat Realease Rate Contour
+      <b>Figure 2: v-centerline velocity
     </td>
   </tr>
 </table>
         
 - **Scalar advection tests (MUSCL/TVD behaviour)**: One-dimensional passive scalar advection with a top-hat initial condition and periodic boundaries is used to assess the MUSCL/TVD schemes implemented in `CBm0.numerics`. The limiter behaviour (Minmod, Superbee, Van Leer) follows the expected TVD characteristics described by van Leer [@vanLeer1977] and Sweby [@Sweby1984]: for a fixed Courant number and advection time, the Minmod limiter produces the most diffusive profile with an interface spread over roughly six grid cells, while Superbee and Van Leer resolve the front within about two cells without overshoots. These results, including the monotone limiter comparison.
+
+- **0D ignition and reaction kinetics**: Spatially homogeneous, zero-dimensional reactor tests are provided in `examples/run_ignition_0d.py` to verify the consistency of the global reaction mechanisms and thermodynamic property evaluation. For the supplied methane/air test case, coarse and reference time steps produce nearly indistinguishable temperature histories; the post-processing script reports a relative $L^2$ error in $T(t)$ that is effectively zero within numerical precision, and ignition times are therefore indistinguishable for the chosen parameter
 <table>
   <tr>
     <td align="center">
-     <img width="900" height="600" alt="advection_top_hat_limiters" src="https://github.com/user-attachments/assets/270effc4-b08a-4f6c-941d-502b24e0f47e" />
+      <img width="1800" height="1200" alt="advection_top_hat_limiters" src="https://github.com/user-attachments/assets/f77b8ddc-db77-46eb-9678-bd913c1df39c" />
       <br />
-      <b>Figure 3: Advection Validation
+      <b>Figure 3: TVD advection verification
+    </td>
+    <td align="center">
+      <img width="1800" height="1200" alt="ignition_T_history" src="https://github.com/user-attachments/assets/48618a43-d47c-4726-b5c9-d0a6ea62e8b7" />
+      <br />
+      <b>Figure 4: 0D ignition regression test
+    </td>
   </tr>
 </table>
 
@@ -166,6 +174,7 @@ The example cases bundled with the code are designed to exercise the main physic
   </tr>
 </table>
 # References
+
 
 
 
