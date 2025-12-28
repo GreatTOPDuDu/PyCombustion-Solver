@@ -116,7 +116,7 @@ PyCombustion-Solver implements a classical low-Mach, incompressible/reacting-flo
 - `CBm0/io_utils.py`: Output utilities (directory creation, contour plots, log-scale plots, run_config snapshots, plotting ranges).
 
 Temperature and heat-release-rate contours in the example cases are often drawn on a logarithmic scale. Very small positive thresholds are applied to avoid numerical issues when taking the logarithm of near-zero fields.
-Simulation is conducted under initial conditions of v_air=0.2m/s, v_fuel=0.6m/s, (300,400) grid conditions with CH4 combustion setting.
+Simulation is conducted under initial conditions of v_air=0.2m/s, v_fuel=0.6m/s, (300,600) grid conditions with CH4 combustion setting.
 
 <table>
   <tr>
@@ -145,6 +145,7 @@ This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENS
 ## Citation
 
 If you use this software in your research, please cite it using the metadata in [CITATION.cff](CITATION.cff).
+
 
 
 
