@@ -90,6 +90,9 @@ $$
 
 which is solved by a multigrid V-cycle. The corrected velocity is updated as
 
+Overall governing equation organizaion is like figure below.
+<img width="1457" height="642" alt="gov" src="https://github.com/user-attachments/assets/aba9fd00-eddd-4550-88e8-7cb4f995ae2a" />
+
 $$
 \boldsymbol{u}^{n+1} = \boldsymbol{u}^* - \Delta t \cdot \frac{1}{\rho} \nabla p'
 $$
@@ -176,6 +179,7 @@ The example cases bundled with the code are designed to exercise the main physic
 </table>
 
 # References
+
 
 
 
