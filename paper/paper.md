@@ -94,11 +94,18 @@ $$
 \boldsymbol{u}^{n+1} = \boldsymbol{u}^* - \Delta t \cdot \frac{1}{\rho} \nabla p'
 $$
 
-Overall governing equation organizaion is like figure below.
-<img width="1457" height="642" alt="gov" src="https://github.com/user-attachments/assets/aba9fd00-eddd-4550-88e8-7cb4f995ae2a" />
-
 Chemical source terms $\dot{\omega}_\phi$ are integrated explicitly using substepping within each global time step, keeping the implementation simple while allowing users to explore the interaction between transport and reaction timescales.
 
+Overall governing equation organizaion is like figure below.
+<table>
+  <tr>
+    <td align="center">
+      <img width="1457" height="642" alt="gov" src="https://github.com/user-attachments/assets/aba9fd00-eddd-4550-88e8-7cb4f995ae2a" />
+      <br />
+      <b>Figure 1: Overall governing equation organization and numerical solution procedure
+    </td>
+  </tr>
+</table>
 # Usage and reproducibility
 
 The software is distributed as a Python package with all example cases and configuration files version-controlled alongside the source. A typical workflow is:
@@ -129,12 +136,12 @@ The example cases bundled with the code are designed to exercise the main physic
     <td align="center">
       <img width="1500" height="1800" alt="cavity_u_centerline" src="https://github.com/user-attachments/assets/b9e67da1-05dc-4abd-b7d1-85ed6a6a3eba" />
       <br />
-      <b>Figure 1: u-centerline velocity
+      <b>Figure 2: u-centerline velocity
     </td>
     <td align="center">
       <img width="1500" height="1800" alt="cavity_v_centerline" src="https://github.com/user-attachments/assets/3e97bae3-48bf-4a55-92a7-d38afa0faf64" />
       <br />
-      <b>Figure 2: v-centerline velocity
+      <b>Figure 3: v-centerline velocity
     </td>
   </tr>
 </table>
@@ -147,12 +154,12 @@ The example cases bundled with the code are designed to exercise the main physic
     <td align="center">
       <img width="2400" height="1800" alt="advection_top_hat_limiters" src="https://github.com/user-attachments/assets/f77b8ddc-db77-46eb-9678-bd913c1df39c" />
       <br />
-      <b>Figure 3: TVD advection verification
+      <b>Figure 4: TVD advection verification
     </td>
     <td align="center">
       <img width="2400" height="1800" alt="ignition_T_history" src="https://github.com/user-attachments/assets/48618a43-d47c-4726-b5c9-d0a6ea62e8b7" />
       <br />
-      <b>Figure 4: 0D ignition mesh regression test
+      <b>Figure 5: 0D ignition mesh regression test
     </td>
   </tr>
 </table>
@@ -163,22 +170,23 @@ The example cases bundled with the code are designed to exercise the main physic
     <td align="center">
       <img width="600" height="800" alt="frame_07917" src="https://github.com/user-attachments/assets/b0e4e359-4ec7-42c8-8a15-08cf00e495a5" />
       <br />
-      <b>Figure 5: Temperature at t=1.5s with (200,400) grid
+      <b>Figure 6: Temperature at t=1.5s with (200,400) grid
     </td>
     <td align="center">
       <img width="600" height="800" alt="frame_11640" src="https://github.com/user-attachments/assets/99c30aed-0261-40cb-8e50-8b96c61be3f2" />
       <br />
-      <b>Figure 6: Temperature at t=1.5s with (250,500) grid
+      <b>Figure 7: Temperature at t=1.5s with (250,500) grid
     </td>
     <td align="center">
       <img width="600" height="800" alt="frame_16664" src="https://github.com/user-attachments/assets/6b36a41d-8f05-4e9e-a8c9-b2eb5b178f6b" />
       <br />
-      <b>Figure 7: Temperature at t=1.5s with (300,600) grid
+      <b>Figure 8: Temperature at t=1.5s with (300,600) grid
     </td>
   </tr>
 </table>
 
 # References
+
 
 
 
