@@ -21,13 +21,13 @@ bibliography: paper.bib
 
 `PyCombustion-Solver` (internal module name `CBm0`) is a compact, Python-based solver for two-dimensional, low-Mach, incompressible reacting flows. It is built on `NumPy` and accelerated with `Numba` to balance code readability with reasonable performance on desktop hardware. The solver implements a finite-volume formulation with MUSCL/TVD advection schemes, a pressure-projection step solved by geometric multigrid, and global reaction mechanisms for methane and hydrogen based on the Westbrook–Dryer family of models [@WestbrookDryer1981]. The design goal is to expose, in a single, readable code base, the numerical building blocks that appear in much larger CFD and combustion codes: spatial reconstruction, CFL-limited time integration, pressure Poisson solves, thermodynamic property evaluation, and stiff chemical source term handling.
 
-# Statement of need
+# Statement of field
 
 Computational Fluid Dynamics (CFD) of reacting flows is a complex field often dominated by large, monolithic software packages like ANSYS Fluent or OpenFOAM. While these tools are powerful, their steep learning curve and complex codebases can be barriers for students and researchers who wish to understand the fundamental coupling between fluid mechanics, thermodynamics, and chemical kinetics.
 
 `PyCombustion-Solver` addresses this need by providing a compact, transparent implementation of a reacting flow solver. It allows users to inspect and modify every part of the pipeline—from the advection schemes (MUSCL/TVD) to the pressure solver (Multigrid) and chemical source term integration. It serves as an educational tool for graduate courses in combustion and CFD, as well as a prototyping platform for testing new numerical ideas or simplified reaction mechanisms before implementation in larger codes.
 
-# Functionality
+# Software design
 
 The solver follows a classical low-Mach reacting-flow formulation on a structured 2D Cartesian grid.
 
@@ -185,8 +185,16 @@ The example cases bundled with the code are designed to exercise the main physic
     </td>
   </tr>
 </table>
+        
+# Research impact statement
 
+This software supports two primary use cases. First, it provides a readable reference implementation for teaching and self-study of low-Mach reacting-flow numerics, allowing students to connect governing equations to discrete operators and stability limits in a single code base. Second, it serves as a prototyping scaffold for exploring simplified reacting-flow ideas (e.g., alternative limiters, projection variants, or reduced chemistry) before translating them into larger production codes. The included examples and scripts are designed to make numerical experiments reproducible and to lower the barrier for method-oriented exploration on standard desktop hardware.
+
+# AI usage disclosure
+
+AI-assisted tools were used for language polishing of the manuscript (grammar and clarity) and did not generate scientific claims, numerical results, or source code. All technical content, experiments, and interpretations were produced and verified by the author.
 # References
+
 
 
 
