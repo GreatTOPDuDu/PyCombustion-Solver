@@ -8,7 +8,7 @@ tags:
   - numba
   - reacting flows
 authors:
-  - name: J. H. Song
+  - name: H. S. Jung
     affiliation: 1
 affiliations:
  - name: Independent Researcher
